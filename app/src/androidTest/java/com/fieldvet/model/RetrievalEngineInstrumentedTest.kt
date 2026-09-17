@@ -11,13 +11,6 @@ import org.junit.runner.RunWith
 
 private const val TAG = "FieldVetRetrieval"
 
-/**
- * Manual verification harness for Checkpoint B: seeds the knowledge base (if
- * empty) and runs a sample retrieval query, logging results to Logcat so they
- * can be inspected without any UI. Run via `./gradlew connectedAndroidTest`
- * (or the gutter run icon) on a connected device/emulator, then filter Logcat
- * by the tag "FieldVetRetrieval".
- */
 @RunWith(AndroidJUnit4::class)
 class RetrievalEngineInstrumentedTest {
 

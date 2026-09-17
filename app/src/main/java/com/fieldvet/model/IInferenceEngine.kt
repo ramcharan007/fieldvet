@@ -1,3 +1,5 @@
 package com.fieldvet.model
 
-interface IInferenceEngine
+interface IInferenceEngine {
+    suspend fun generateResponse(prompt: String): String
+}
