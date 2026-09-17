@@ -12,6 +12,7 @@ activityCompose = "1.13.0"
 lifecycleViewmodelCompose = "2.11.0"
 kotlinxCoroutines = "1.11.0"
 sqliteFramework = "2.7.1"
+requerySqlite = "3.49.0"
 litertlm = "0.17.1"
 
 [libraries]
@@ -38,6 +39,8 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 
 # Raw SupportSQLiteDatabase/SupportSQLiteOpenHelper access (no Room) for FTS5 queries
 androidx-sqlite-framework = { group = "androidx.sqlite", name = "sqlite-framework", version.ref = "sqliteFramework" }
+
+requery-sqlite-android = { group = "com.github.requery", name = "sqlite-android", version.ref = "requerySqlite" }
 
 # LiteRT-LM: on-device LLM inference runtime (successor to MediaPipe tasks-genai)
 google-litertlm-android = { group = "com.google.ai.edge.litertlm", name = "litertlm-android", version.ref = "litertlm" }

@@ -57,8 +57,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.kotlinx.coroutines.android)
 
-    // Raw SQLite access (SupportSQLiteDatabase) with FTS5, no Room
+    // Raw SQLite access (SupportSQLiteDatabase) with FTS5, no Room. Uses requery's
+    // bundled SQLite build (compiled with FTS5) instead of the platform's built-in
+    // SQLite, which doesn't reliably expose the fts5 module across devices.
     implementation(libs.androidx.sqlite.framework)
+    implementation(libs.requery.sqlite.android)
 
     // On-device LLM inference
     implementation(libs.google.litertlm.android)
