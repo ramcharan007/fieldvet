@@ -10,6 +10,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FieldVet" />
+        android:theme="@style/Theme.FieldVet">
+
+        <!-- Fully-qualified name (not ".MainActivity"): namespace/applicationId is still
+             the stale "com.example.fieldvet" while this class lives under "com.fieldvet". -->
+        <activity
+            android:name="com.fieldvet.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>

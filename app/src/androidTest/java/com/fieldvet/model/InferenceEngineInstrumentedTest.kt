@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,19 +22,19 @@ class InferenceEngineInstrumentedTest {
         val inferenceEngine: IInferenceEngine = InferenceEngine(context)
 
         val prompt = "A cow has a distended abdomen and is kicking at its belly. What might be wrong?"
-        println("Starting inference")
-        Log.i(TAG, "Starting inference for prompt: $prompt")
-        
+        Log.d(TAG, "Prompt: $prompt")
+
+        val modelPushed = java.io.File("/data/local/tmp/llm/model.litertlm").exists()
+        if (!modelPushed) {
+            val exception = assertThrows(InferenceException::class.java) {
+                runBlocking { inferenceEngine.generateResponse(prompt) }
+            }
+            Log.d(TAG, "Expected failure (model not pushed): ${exception.message}")
+            return@runBlocking
+        }
+
         val response = inferenceEngine.generateResponse(prompt)
-
-        println("-----------INFERENCE RESULT -------")
-        println("Prompt: $prompt")
-        println("Response: $response")
-        println("--------------------------------------")
-        
-        Log.i(TAG, "Prompt: $prompt")
-        Log.i(TAG, "Response: $response")
-
+        Log.d(TAG, "Response: $response")
         assertTrue("Expected a non-blank response", response.isNotBlank())
     }
 }

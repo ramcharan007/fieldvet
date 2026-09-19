@@ -1,3 +1,5 @@
 package com.fieldvet.model
 
-class UrgencyClassifier
+class UrgencyClassifier {
+    fun classify(entry: KnowledgeEntry): String = entry.urgency
+}
