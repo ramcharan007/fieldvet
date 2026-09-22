@@ -24,7 +24,7 @@ class InferenceEngineInstrumentedTest {
         val prompt = "A cow has a distended abdomen and is kicking at its belly. What might be wrong?"
         Log.d(TAG, "Prompt: $prompt")
 
-        val modelPushed = java.io.File("/data/local/tmp/llm/model.litertlm").exists()
+        val modelPushed = ModelStorage.modelFile(context).exists()
         if (!modelPushed) {
             val exception = assertThrows(InferenceException::class.java) {
                 runBlocking { inferenceEngine.generateResponse(prompt) }

@@ -14,6 +14,7 @@ kotlinxCoroutines = "1.11.0"
 sqliteFramework = "2.7.1"
 requerySqlite = "3.49.0"
 litertlm = "0.17.1"
+workRuntimeKtx = "2.11.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +45,9 @@ requery-sqlite-android = { group = "com.github.requery", name = "sqlite-android"
 
 # LiteRT-LM: on-device LLM inference runtime (successor to MediaPipe tasks-genai)
 google-litertlm-android = { group = "com.google.ai.edge.litertlm", name = "litertlm-android", version.ref = "litertlm" }
+
+# Persists the first-launch model download across navigation/backgrounding/process death
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntimeKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -66,6 +66,9 @@ dependencies {
     // On-device LLM inference
     implementation(libs.google.litertlm.android)
 
+    // First-launch model download, survives navigation/backgrounding/process death
+    implementation(libs.androidx.work.runtime.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)

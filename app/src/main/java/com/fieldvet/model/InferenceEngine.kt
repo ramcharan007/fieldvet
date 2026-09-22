@@ -7,13 +7,11 @@ import com.google.ai.edge.litertlm.Engine
 import com.google.ai.edge.litertlm.EngineConfig
 import com.google.ai.edge.litertlm.LiteRtLmJniException
 import com.google.ai.edge.litertlm.LogSeverity
-import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
-private const val MODEL_PATH = "/data/local/tmp/llm/model.litertlm"
 private const val MAX_OUTPUT_TOKENS = 200
 
 class InferenceEngine(private val context: Context) : IInferenceEngine {
@@ -39,15 +37,14 @@ class InferenceEngine(private val context: Context) : IInferenceEngine {
     private suspend fun ensureInitialized(): Conversation = initMutex.withLock {
         conversation?.let { return@withLock it }
 
-        if (!File(MODEL_PATH).exists()) {
-            throw InferenceException(
-                "Model file not found at $MODEL_PATH. Push it via: adb push <model-file> $MODEL_PATH"
-            )
+        val modelFile = ModelStorage.modelFile(context)
+        if (!modelFile.exists()) {
+            throw InferenceException("Model file not found at ${modelFile.absolutePath}.")
         }
 
         Engine.setNativeMinLogSeverity(LogSeverity.ERROR)
 
-        val newEngine = Engine(EngineConfig(modelPath = MODEL_PATH, cacheDir = context.cacheDir.path))
+        val newEngine = Engine(EngineConfig(modelPath = modelFile.absolutePath, cacheDir = context.cacheDir.path))
         try {
             newEngine.initialize()
         } catch (e: Exception) {
