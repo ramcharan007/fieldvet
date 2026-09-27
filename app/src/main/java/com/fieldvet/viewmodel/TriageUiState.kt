@@ -6,5 +6,6 @@ sealed interface TriageUiState {
     data object Idle : TriageUiState
     data object Loading : TriageUiState
     data class Success(val result: TriageResult) : TriageUiState
+    data object NoMatch : TriageUiState
     data class Error(val message: String) : TriageUiState
 }

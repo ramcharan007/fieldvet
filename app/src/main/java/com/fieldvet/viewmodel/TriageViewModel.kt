@@ -18,7 +18,8 @@ class TriageViewModel(private val triageUseCase: TriageUseCase) : ViewModel() {
         _uiState.value = TriageUiState.Loading
         viewModelScope.launch {
             _uiState.value = try {
-                TriageUiState.Success(triageUseCase.runTriage(species, symptomText))
+                val result = triageUseCase.runTriage(species, symptomText)
+                if (result.isSuccess) TriageUiState.Success(result) else TriageUiState.NoMatch
             } catch (e: InferenceException) {
                 TriageUiState.Error(e.message ?: "Inference failed")
             } catch (e: Exception) {

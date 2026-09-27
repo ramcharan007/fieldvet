@@ -69,6 +69,9 @@ dependencies {
     // First-launch model download, survives navigation/backgrounding/process death
     implementation(libs.androidx.work.runtime.ktx)
 
+    // Navigation graph across the 6 screens
+    implementation(libs.androidx.navigation.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
