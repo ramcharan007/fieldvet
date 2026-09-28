@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
@@ -17,7 +18,7 @@ private const val TAG = "FieldVetInference"
 class InferenceEngineInstrumentedTest {
 
     @Test
-    fun generateResponse_cattleBloatPrompt_logsResult() = runBlocking {
+    fun generateResponseStream_cattleBloatPrompt_logsResult() = runBlocking {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val inferenceEngine: IInferenceEngine = InferenceEngine(context)
 
@@ -27,14 +28,15 @@ class InferenceEngineInstrumentedTest {
         val modelPushed = ModelStorage.modelFile(context).exists()
         if (!modelPushed) {
             val exception = assertThrows(InferenceException::class.java) {
-                runBlocking { inferenceEngine.generateResponse(prompt) }
+                runBlocking { inferenceEngine.generateResponseStream(prompt).collect {} }
             }
             Log.d(TAG, "Expected failure (model not pushed): ${exception.message}")
             return@runBlocking
         }
 
-        val response = inferenceEngine.generateResponse(prompt)
-        Log.d(TAG, "Response: $response")
-        assertTrue("Expected a non-blank response", response.isNotBlank())
+        var lastEmission = ""
+        inferenceEngine.generateResponseStream(prompt).collect { lastEmission = it }
+        Log.d(TAG, "Response: $lastEmission")
+        assertTrue("Expected a non-blank response", lastEmission.isNotBlank())
     }
 }

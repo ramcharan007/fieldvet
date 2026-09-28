@@ -1,5 +1,7 @@
 package com.fieldvet.model
 
+import kotlinx.coroutines.flow.Flow
+
 interface IInferenceEngine {
-    suspend fun generateResponse(prompt: String): String
+    fun generateResponseStream(prompt: String): Flow<String>
 }

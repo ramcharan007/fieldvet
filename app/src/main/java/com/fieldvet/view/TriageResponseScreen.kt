@@ -11,12 +11,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -30,18 +33,30 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextIndent
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fieldvet.model.TriageResult
 import com.fieldvet.view.theme.UrgencyColors
+import com.fieldvet.view.theme.UrgencyEmergency
+import com.fieldvet.view.theme.UrgencyEmergencyTint
 
 private val BOLD_REGEX = Regex("""\*\*(.+?)\*\*""")
 private val BULLET_LINE_REGEX = Regex("""^[-*•]\s+(.*)$""")
 private val NUMBERED_LINE_REGEX = Regex("""^(\d+)[.)]\s+(.*)$""")
 
 @Composable
-fun TriageResponseScreen(result: TriageResult, onNewSymptomCheck: () -> Unit) {
+fun TriageResponseScreen(
+    species: String,
+    symptomText: String,
+    result: TriageResult,
+    guidanceText: String,
+    isStreaming: Boolean,
+    streamError: String?,
+    onRetryStreaming: () -> Unit,
+    onNewSymptomCheck: () -> Unit,
+) {
     val palette = UrgencyColors.forLevel(result.urgencyLevel)
     val isUrgent = result.urgencyLevel == "Emergency" || result.urgencyLevel == "Monitor"
 
@@ -56,6 +71,14 @@ fun TriageResponseScreen(result: TriageResult, onNewSymptomCheck: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
+                text = "$species · $symptomText",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+
+            Text(
                 text = "What to do",
                 style = MaterialTheme.typography.titleLarge,
             )
@@ -65,23 +88,30 @@ fun TriageResponseScreen(result: TriageResult, onNewSymptomCheck: () -> Unit) {
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             ) {
-                FormattedResponseText(
-                    text = result.responseText.orEmpty(),
-                    modifier = Modifier.padding(16.dp),
-                )
+                Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    FormattedResponseText(text = guidanceText)
+                    if (isStreaming) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(16.dp),
+                            color = MaterialTheme.colorScheme.primary,
+                            strokeWidth = 2.dp,
+                        )
+                    }
+                    if (streamError != null) {
+                        StreamErrorBanner(message = streamError, onRetry = onRetryStreaming)
+                    }
+                }
             }
 
             if (isUrgent) {
                 VetContactBanner(accent = palette.accent, tint = palette.tint)
             }
 
-            result.sourceCitation?.let {
-                Text(
-                    text = "Source: $it",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
+            Text(
+                text = "Source: ${result.sourceCitation}",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
 
             OutlinedButton(
                 onClick = onNewSymptomCheck,
@@ -89,6 +119,27 @@ fun TriageResponseScreen(result: TriageResult, onNewSymptomCheck: () -> Unit) {
             ) {
                 Text("New Symptom Check")
             }
+        }
+    }
+}
+
+@Composable
+private fun StreamErrorBanner(message: String, onRetry: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(UrgencyEmergencyTint, RoundedCornerShape(12.dp))
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Text(
+            text = "Something went wrong generating guidance",
+            style = MaterialTheme.typography.titleMedium,
+            color = UrgencyEmergency,
+        )
+        Text(text = message, style = MaterialTheme.typography.bodyMedium)
+        Button(onClick = onRetry, modifier = Modifier.fillMaxWidth().height(56.dp)) {
+            Text("Retry")
         }
     }
 }

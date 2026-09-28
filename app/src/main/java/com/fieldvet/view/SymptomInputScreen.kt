@@ -46,11 +46,7 @@ fun SymptomInputScreen(
     onBack: () -> Unit,
     onSubmit: (query: String) -> Unit,
 ) {
-    if (uiState is TriageUiState.Loading) {
-        LoadingContent()
-        return
-    }
-
+    val isLoading = uiState is TriageUiState.Loading
     val selectedChips = remember { mutableStateListOf<String>() }
     var freeText by remember { mutableStateOf("") }
 
@@ -143,13 +139,21 @@ fun SymptomInputScreen(
 
         Button(
             onClick = ::submit,
-            enabled = selectedChips.isNotEmpty() || freeText.isNotBlank(),
+            enabled = (selectedChips.isNotEmpty() || freeText.isNotBlank()) && !isLoading,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
                 .padding(top = 16.dp),
         ) {
-            Text("Get Advice")
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(20.dp),
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    strokeWidth = 2.dp,
+                )
+            } else {
+                Text("Get Advice")
+            }
         }
     }
 }
@@ -197,20 +201,6 @@ private fun InlineErrorBanner(message: String, onRetry: () -> Unit) {
         Text(text = message, style = MaterialTheme.typography.bodyMedium)
         Button(onClick = onRetry, modifier = Modifier.fillMaxWidth().height(56.dp)) {
             Text("Retry")
-        }
-    }
-}
-
-@Composable
-private fun LoadingContent() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
-            Text("Checking symptoms...")
         }
     }
 }

@@ -8,11 +8,13 @@ import com.google.ai.edge.litertlm.EngineConfig
 import com.google.ai.edge.litertlm.LiteRtLmJniException
 import com.google.ai.edge.litertlm.LogSeverity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 
-private const val MAX_OUTPUT_TOKENS = 200
+private const val MAX_OUTPUT_TOKENS = 300
 
 class InferenceEngine(private val context: Context) : IInferenceEngine {
 
@@ -22,17 +24,24 @@ class InferenceEngine(private val context: Context) : IInferenceEngine {
 
     // Model loading/inference is CPU-bound native work, not blocking I/O, so this
     // uses Dispatchers.Default rather than the Dispatchers.IO used by RetrievalEngine.
-    override suspend fun generateResponse(prompt: String): String = withContext(Dispatchers.Default) {
+    // flowOn keeps ensureInitialized()'s blocking native init (and the sendMessageAsync
+    // collection) off Main, since this flow would otherwise run on the collector's
+    // dispatcher (viewModelScope -> Dispatchers.Main.immediate).
+    override fun generateResponseStream(prompt: String): Flow<String> = flow {
         val conv = ensureInitialized()
+        val accumulated = StringBuilder()
         try {
-            val message = conv.sendMessage(prompt, maxOutputToken = MAX_OUTPUT_TOKENS)
-            message.contents.contents
-                .filterIsInstance<Content.Text>()
-                .joinToString("") { it.text }
+            conv.sendMessageAsync(prompt, maxOutputToken = MAX_OUTPUT_TOKENS).collect { message ->
+                val chunk = message.contents.contents
+                    .filterIsInstance<Content.Text>()
+                    .joinToString("") { it.text }
+                accumulated.append(chunk)
+                emit(accumulated.toString())
+            }
         } catch (e: LiteRtLmJniException) {
             throw InferenceException("LiteRT-LM failed to run inference: ${e.message}", e)
         }
-    }
+    }.flowOn(Dispatchers.Default)
 
     private suspend fun ensureInitialized(): Conversation = initMutex.withLock {
         conversation?.let { return@withLock it }

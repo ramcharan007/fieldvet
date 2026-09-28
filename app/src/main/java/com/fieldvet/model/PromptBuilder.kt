@@ -12,8 +12,10 @@ class PromptBuilder {
         }
 
         return """
-            You are a veterinary triage assistant. Answer using ONLY the reference
-            information below. Do not invent facts that aren't in it. Be concise.
+            You are a veterinary triage assistant helping a farmer in the field. Answer using
+            ONLY the reference information below - never state a fact, cause, or treatment that
+            is not explicitly present in it. If the reference does not fully cover the symptoms
+            described, say so plainly instead of filling the gap yourself.
 
             Species: $species
             Symptoms: $symptoms
@@ -21,7 +23,10 @@ class PromptBuilder {
             Reference information:
             $referenceBlock
 
-            Give the farmer short, practical advice based only on the reference above.
+            Write your answer as 3-5 short numbered steps the farmer should take right now, in
+            the order they matter most. For each step, briefly explain why it matters using only
+            what the reference says - do not add new causes, risks, or treatments beyond what is
+            stated above. Keep the whole answer under about 120 words.
         """.trimIndent()
     }
 }

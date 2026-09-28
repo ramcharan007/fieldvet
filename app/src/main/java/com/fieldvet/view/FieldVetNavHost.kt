@@ -114,8 +114,10 @@ fun FieldVetNavHost() {
 
                 LaunchedEffect(uiState) {
                     when (uiState) {
-                        is TriageUiState.Success -> navController.navigate(responseRoute(species))
-                        is TriageUiState.NoMatch -> navController.navigate(noMatchRoute(species))
+                        is TriageUiState.Success ->
+                            navController.navigate(responseRoute(species)) { launchSingleTop = true }
+                        is TriageUiState.NoMatch ->
+                            navController.navigate(noMatchRoute(species)) { launchSingleTop = true }
                         else -> Unit
                     }
                 }
@@ -152,8 +154,16 @@ fun FieldVetNavHost() {
 
                 val successState = uiState as? TriageUiState.Success
                 if (successState != null) {
+                    val symptomText by triageViewModel.submittedSymptomText.collectAsState()
+                    val streamState by triageViewModel.streamState.collectAsState()
                     TriageResponseScreen(
+                        species = species,
+                        symptomText = symptomText,
                         result = successState.result,
+                        guidanceText = streamState.text,
+                        isStreaming = streamState.isStreaming,
+                        streamError = streamState.error,
+                        onRetryStreaming = triageViewModel::retryStreaming,
                         onNewSymptomCheck = {
                             triageViewModel.reset()
                             navController.navigate(symptomInputRoute(species)) {
