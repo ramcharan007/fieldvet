@@ -1,0 +1,474 @@
+{
+  "version": 2,
+  "notice": "Generalized, illustrative triage content for a demo app. Not a substitute for veterinary review; have a qualified veterinarian verify before real-world use.",
+  "entries": [
+    {
+      "id": "cattle_bloat_01",
+      "species": "cattle",
+      "condition": "Bloat",
+      "symptoms": ["distended abdomen", "swollen left side", "difficulty breathing", "kicking at belly", "restlessness"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian immediately. Do not delay - bloat can be fatal within hours. Keep the animal standing and moving if possible; avoid forcing it to lie down.",
+      "sourceCitation": "Merck Veterinary Manual - Bloat in Ruminants (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_dystocia_01",
+      "species": "cattle",
+      "condition": "Dystocia (Difficult Calving)",
+      "symptoms": ["prolonged straining", "calf legs visible but not progressing", "calf malpositioned", "exhaustion"],
+      "urgency": "Emergency",
+      "actionText": "Call a veterinarian immediately if active straining continues for more than 30 minutes without progress. Do not attempt manual traction without training.",
+      "sourceCitation": "Merck Veterinary Manual - Dystocia in Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_milkfever_01",
+      "species": "cattle",
+      "condition": "Milk Fever (Hypocalcemia)",
+      "symptoms": ["muscle tremors", "down cow unable to stand", "cold ears", "staggering gait", "recently calved"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian immediately for IV calcium treatment. Keep the cow warm and upright with bedding support if possible.",
+      "sourceCitation": "Merck Veterinary Manual - Parturient Hypocalcemia (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_footrot_01",
+      "species": "cattle",
+      "condition": "Foot Rot",
+      "symptoms": ["lameness", "swelling between hooves", "foul odor", "limping"],
+      "urgency": "Monitor",
+      "actionText": "Isolate the animal, clean and inspect the hoof, and monitor for worsening. Schedule a veterinary visit if lameness persists beyond 2-3 days or spreads to other feet.",
+      "sourceCitation": "Merck Veterinary Manual - Foot Rot in Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_indigestion_01",
+      "species": "cattle",
+      "condition": "Mild Indigestion",
+      "symptoms": ["slightly reduced appetite", "mild bloating", "normal breathing", "normal manure"],
+      "urgency": "Non-urgent",
+      "actionText": "Monitor feed intake and manure over the next 24 hours. Ensure fresh water and consistent forage. Contact a vet only if symptoms worsen.",
+      "sourceCitation": "General veterinary guidance (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_grasstetany_01",
+      "species": "cattle",
+      "condition": "Grass Tetany (Hypomagnesemia)",
+      "symptoms": ["muscle twitching", "excitable or aggressive", "staggering", "convulsions", "grazing lush spring pasture"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian immediately - this can be fatal quickly and needs injectable magnesium. Handle the animal as little and as quietly as possible, since stress can trigger convulsions.",
+      "sourceCitation": "Merck Veterinary Manual - Hypomagnesemic Tetany in Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_ketosis_01",
+      "species": "cattle",
+      "condition": "Ketosis",
+      "symptoms": ["reduced appetite", "sudden drop in milk yield", "weight loss", "sweet acetone smell on breath", "dull", "weeks after calving"],
+      "urgency": "Monitor",
+      "actionText": "Contact a veterinarian within 24 hours to confirm and treat. Encourage the cow to eat with fresh, palatable feed and clean water. Call sooner if she stops eating or shows nervous signs such as licking or circling.",
+      "sourceCitation": "Merck Veterinary Manual - Ketosis in Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_mastitis_01",
+      "species": "cattle",
+      "condition": "Clinical Mastitis",
+      "symptoms": ["swollen udder quarter", "hot udder", "clots or flakes in milk", "watery milk", "pain when udder touched"],
+      "urgency": "Monitor",
+      "actionText": "Milk the affected quarter out separately and discard the milk. Keep bedding clean and dry. Contact a veterinarian within 24 hours for treatment advice; call immediately if the cow goes off feed or develops a fever.",
+      "sourceCitation": "Merck Veterinary Manual - Mastitis in Large Animals (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_toxicmastitis_01",
+      "species": "cattle",
+      "condition": "Severe (Toxic) Mastitis",
+      "symptoms": ["hard swollen udder quarter", "fever", "off feed", "depressed", "watery or bloody milk", "cow down"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian immediately - severe mastitis can be life-threatening. Keep the cow in a clean, dry, sheltered area with water within reach.",
+      "sourceCitation": "Merck Veterinary Manual - Mastitis in Large Animals (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_pneumonia_01",
+      "species": "cattle",
+      "condition": "Respiratory Disease (Pneumonia)",
+      "symptoms": ["fever", "rapid breathing", "coughing", "nasal discharge", "droopy ears", "reduced appetite"],
+      "urgency": "Monitor",
+      "actionText": "Separate the animal from the herd and provide shade, water, and good ventilation. Contact a veterinarian within 24 hours for treatment. Call immediately if breathing becomes laboured or open-mouthed.",
+      "sourceCitation": "Merck Veterinary Manual - Bovine Respiratory Disease Complex (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_calfscours_01",
+      "species": "cattle",
+      "condition": "Calf Scours (Mild Diarrhea)",
+      "symptoms": ["calf diarrhea", "watery manure", "calf still suckling", "calf alert"],
+      "urgency": "Monitor",
+      "actionText": "Keep the calf feeding and give oral electrolytes between milk feeds to prevent dehydration. Isolate it from other calves and keep bedding clean. Contact a vet if the calf stops suckling, becomes weak, or diarrhea lasts more than a day.",
+      "sourceCitation": "Merck Veterinary Manual - Diarrhea in Neonatal Ruminants (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_calfscours_02",
+      "species": "cattle",
+      "condition": "Calf Scours with Severe Dehydration",
+      "symptoms": ["calf diarrhea", "sunken eyes", "calf cannot stand", "weak or no suck reflex", "cold mouth", "skin tent stays up"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian immediately - the calf likely needs IV fluids. Keep it warm and dry. Do not force-feed fluids to a calf that cannot swallow.",
+      "sourceCitation": "Merck Veterinary Manual - Diarrhea in Neonatal Ruminants (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_navelill_01",
+      "species": "cattle",
+      "condition": "Navel Ill (Navel Infection)",
+      "symptoms": ["swollen navel", "hot moist navel", "pus at navel", "calf dull", "swollen joints"],
+      "urgency": "Monitor",
+      "actionText": "Contact a veterinarian within 24 hours - navel infections can spread to joints. Keep the calf on clean, dry bedding and make sure it is feeding well.",
+      "sourceCitation": "Merck Veterinary Manual - Omphalitis in Calves (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_retainedplacenta_01",
+      "species": "cattle",
+      "condition": "Retained Placenta",
+      "symptoms": ["afterbirth hanging from vulva", "membranes not passed after calving", "foul smelling discharge"],
+      "urgency": "Monitor",
+      "actionText": "Do not pull on the membranes. Keep the cow in a clean area and watch her appetite and temperature. Contact a veterinarian if the membranes are still present after 24 hours or she develops a fever or goes off feed.",
+      "sourceCitation": "Merck Veterinary Manual - Retained Fetal Membranes in Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_metritis_01",
+      "species": "cattle",
+      "condition": "Metritis (Uterine Infection)",
+      "symptoms": ["foul smelling vaginal discharge", "fever", "reduced appetite", "drop in milk", "after calving"],
+      "urgency": "Monitor",
+      "actionText": "Contact a veterinarian within 24 hours for treatment. Provide fresh water and feed. Call immediately if the cow becomes very dull or stops eating.",
+      "sourceCitation": "Merck Veterinary Manual - Metritis in Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_uterineprolapse_01",
+      "species": "cattle",
+      "condition": "Uterine Prolapse",
+      "symptoms": ["large red mass from vulva", "organ protruding after calving", "straining"],
+      "urgency": "Emergency",
+      "actionText": "Call a veterinarian immediately. Keep the cow quiet and still. Wrap the mass in a clean, wet sheet and support it at the level of the vulva to reduce swelling and injury. Keep other animals and dogs away.",
+      "sourceCitation": "Merck Veterinary Manual - Uterine Prolapse in Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_hardware_01",
+      "species": "cattle",
+      "condition": "Hardware Disease (Traumatic Reticuloperitonitis)",
+      "symptoms": ["arched back", "grunting", "reluctance to move", "reduced appetite", "drop in milk", "stands with elbows out"],
+      "urgency": "Monitor",
+      "actionText": "Contact a veterinarian within 24 hours. Keep the animal quiet and avoid forcing it to walk. Check feed and pasture for wire, nails, or other metal objects.",
+      "sourceCitation": "Merck Veterinary Manual - Traumatic Reticuloperitonitis (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_choke_01",
+      "species": "cattle",
+      "condition": "Choke (Esophageal Obstruction)",
+      "symptoms": ["drooling", "stretching neck", "coughing", "repeated swallowing", "bloat", "ate roots or fruit"],
+      "urgency": "Emergency",
+      "actionText": "Remove all feed and call a veterinarian immediately - choke can cause life-threatening bloat. Do not push objects down the throat.",
+      "sourceCitation": "Merck Veterinary Manual - Esophageal Obstruction in Large Animals (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_poisoning_01",
+      "species": "cattle",
+      "condition": "Suspected Plant or Nitrate Poisoning",
+      "symptoms": ["sudden death in herd", "trembling", "difficulty breathing", "brown or blue gums", "staggering", "new feed or pasture"],
+      "urgency": "Emergency",
+      "actionText": "Move all animals off the suspect feed or pasture and call a veterinarian immediately. Keep a sample of the feed or plants for testing. Handle affected animals calmly.",
+      "sourceCitation": "Merck Veterinary Manual - Poisonous Plants and Nitrate Poisoning (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_heatstress_01",
+      "species": "cattle",
+      "condition": "Heat Stroke",
+      "symptoms": ["open mouth panting", "drooling", "tongue out", "stumbling", "collapse", "hot weather"],
+      "urgency": "Emergency",
+      "actionText": "Move the animal to shade immediately, provide cool drinking water, and wet its body with cool water. Call a veterinarian if it collapses or does not improve within 30 minutes.",
+      "sourceCitation": "Merck Veterinary Manual - Heat Stress in Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_fmd_01",
+      "species": "cattle",
+      "condition": "Suspected Foot-and-Mouth Disease (Notifiable)",
+      "symptoms": ["blisters in mouth", "blisters on feet", "excessive drooling", "lameness", "fever", "several animals affected"],
+      "urgency": "Emergency",
+      "actionText": "Do not move any animals on or off the farm. Isolate affected animals and contact a veterinarian or animal health authority immediately - this is a notifiable disease. Restrict visitors and vehicles.",
+      "sourceCitation": "Merck Veterinary Manual - Foot-and-Mouth Disease (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_pinkeye_01",
+      "species": "cattle",
+      "condition": "Pinkeye (Infectious Keratoconjunctivitis)",
+      "symptoms": ["tearing", "squinting", "cloudy eye", "white spot on eye", "sensitive to light"],
+      "urgency": "Monitor",
+      "actionText": "Separate the animal and provide shade. Control flies, which spread the infection. Contact a veterinarian within 24 hours for treatment to prevent permanent eye damage.",
+      "sourceCitation": "Merck Veterinary Manual - Infectious Bovine Keratoconjunctivitis (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_digitaldermatitis_01",
+      "species": "cattle",
+      "condition": "Digital Dermatitis",
+      "symptoms": ["lameness", "raw red lesion above heel", "painful to touch", "walks on toes"],
+      "urgency": "Monitor",
+      "actionText": "Clean the foot and keep the animal on dry ground. Contact a veterinarian or hoof trimmer within a few days for treatment. Use a footbath for the herd if several animals are affected.",
+      "sourceCitation": "Merck Veterinary Manual - Digital Dermatitis in Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_woodentongue_01",
+      "species": "cattle",
+      "condition": "Wooden Tongue (Actinobacillosis)",
+      "symptoms": ["swollen hard tongue", "drooling", "difficulty eating", "tongue sticking out", "weight loss"],
+      "urgency": "Monitor",
+      "actionText": "Contact a veterinarian within a few days for treatment. Offer soft feed and plenty of water. Isolate the animal from shared feed troughs.",
+      "sourceCitation": "Merck Veterinary Manual - Actinobacillosis (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_ringworm_01",
+      "species": "cattle",
+      "condition": "Ringworm",
+      "symptoms": ["circular hairless patches", "grey crusty skin", "patches around eyes", "mild itching"],
+      "urgency": "Non-urgent",
+      "actionText": "Wear gloves when handling - ringworm can spread to people. Isolate affected animals where practical. Most cases resolve on their own; consult a vet if lesions spread widely.",
+      "sourceCitation": "Merck Veterinary Manual - Dermatophytosis in Animals (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_lice_01",
+      "species": "cattle",
+      "condition": "Lice (External Parasites)",
+      "symptoms": ["itching", "rubbing on posts", "hair loss", "rough coat", "visible lice"],
+      "urgency": "Non-urgent",
+      "actionText": "Inspect the coat along the neck and back. Treat the whole group, not just the affected animal, as advised by a vet or agricultural supplier.",
+      "sourceCitation": "Merck Veterinary Manual - Lice of Cattle (generalized, illustrative)"
+    },
+    {
+      "id": "cattle_minorwound_01",
+      "species": "cattle",
+      "condition": "Minor Wound",
+      "symptoms": ["small cut", "scrape", "minor bleeding", "animal eating normally"],
+      "urgency": "Non-urgent",
+      "actionText": "Clean the wound with clean water and keep flies away. Check it daily. Contact a vet if it is deep, near a joint, swells, or produces pus.",
+      "sourceCitation": "General veterinary guidance (generalized, illustrative)"
+    },
+    {
+      "id": "horse_colic_01",
+      "species": "horse",
+      "condition": "Colic",
+      "symptoms": ["pawing at ground", "rolling", "looking at flank", "absence of gut sounds", "sweating"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian immediately. Remove feed, keep the horse calm, and walk it gently if it is safe to do so. Do not administer medication without veterinary guidance.",
+      "sourceCitation": "Merck Veterinary Manual - Colic in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_choke_01",
+      "species": "horse",
+      "condition": "Choke (Esophageal Obstruction)",
+      "symptoms": ["coughing", "nasal discharge with feed material", "distress", "neck extension"],
+      "urgency": "Emergency",
+      "actionText": "Remove all feed and water immediately and call a veterinarian. Do not attempt to dislodge the obstruction yourself.",
+      "sourceCitation": "Merck Veterinary Manual - Esophageal Obstruction (generalized, illustrative)"
+    },
+    {
+      "id": "horse_laminitis_01",
+      "species": "horse",
+      "condition": "Laminitis",
+      "symptoms": ["reluctance to move", "heat in hooves", "strong pulse in hooves", "shifting weight between feet", "leaning back on heels", "lying down more than usual"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian promptly - early treatment limits permanent hoof damage. Restrict movement, provide deep soft bedding, and remove access to rich pasture and grain.",
+      "sourceCitation": "Merck Veterinary Manual - Laminitis in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_gascolic_01",
+      "species": "horse",
+      "condition": "Mild Gas Colic",
+      "symptoms": ["occasional pawing", "mild discomfort", "normal gut sounds", "improves with walking"],
+      "urgency": "Monitor",
+      "actionText": "Walk the horse gently and monitor closely for 30-60 minutes. Contact a veterinarian if symptoms worsen or gut sounds disappear.",
+      "sourceCitation": "General veterinary guidance (generalized, illustrative)"
+    },
+    {
+      "id": "horse_rainscald_01",
+      "species": "horse",
+      "condition": "Rain Scald (Dermatophilosis)",
+      "symptoms": ["scabby skin lesions", "matted tufts of hair", "mild discomfort when touched", "no fever"],
+      "urgency": "Non-urgent",
+      "actionText": "Keep the affected area dry and clean. Mild cases often resolve without treatment; consult a vet if lesions spread significantly.",
+      "sourceCitation": "General veterinary guidance (generalized, illustrative)"
+    },
+    {
+      "id": "horse_tyingup_01",
+      "species": "horse",
+      "condition": "Tying-Up (Exertional Rhabdomyolysis)",
+      "symptoms": ["stiff hindquarters", "hard painful muscles", "reluctance to move", "sweating", "dark brown urine", "during or after exercise"],
+      "urgency": "Emergency",
+      "actionText": "Stop exercise immediately and do not force the horse to walk. Keep it warm with a rug and offer water. Contact a veterinarian immediately.",
+      "sourceCitation": "Merck Veterinary Manual - Exertional Myopathies in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_strangles_01",
+      "species": "horse",
+      "condition": "Strangles",
+      "symptoms": ["fever", "thick yellow nasal discharge", "swollen glands under jaw", "difficulty swallowing", "reduced appetite"],
+      "urgency": "Monitor",
+      "actionText": "Isolate the horse immediately - strangles is highly contagious. Use separate buckets and equipment and wash hands after handling. Contact a veterinarian within 24 hours; call immediately if breathing becomes noisy or difficult.",
+      "sourceCitation": "Merck Veterinary Manual - Strangles in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_respiratory_01",
+      "species": "horse",
+      "condition": "Respiratory Infection (e.g. Equine Influenza)",
+      "symptoms": ["fever", "dry cough", "clear nasal discharge", "lethargy", "reduced appetite"],
+      "urgency": "Monitor",
+      "actionText": "Rest the horse completely and isolate it from others. Provide good ventilation and dust-free feed. Contact a veterinarian within 24 hours, and do not return to work until the vet advises.",
+      "sourceCitation": "Merck Veterinary Manual - Equine Influenza (generalized, illustrative)"
+    },
+    {
+      "id": "horse_heaves_01",
+      "species": "horse",
+      "condition": "Heaves (Equine Asthma)",
+      "symptoms": ["chronic cough", "laboured breathing", "flared nostrils", "heave line on belly", "worse in dusty stable"],
+      "urgency": "Monitor",
+      "actionText": "Reduce dust: turn the horse out where possible, soak or steam hay, and use low-dust bedding. Contact a veterinarian for an assessment; call immediately if the horse struggles to breathe at rest.",
+      "sourceCitation": "Merck Veterinary Manual - Equine Asthma (generalized, illustrative)"
+    },
+    {
+      "id": "horse_hoofabscess_01",
+      "species": "horse",
+      "condition": "Hoof Abscess",
+      "symptoms": ["sudden severe lameness", "one leg lame", "heat in hoof", "strong pulse in hoof", "barely bearing weight"],
+      "urgency": "Monitor",
+      "actionText": "Keep the horse on clean, dry bedding and contact a veterinarian or farrier within 24 hours to locate and drain the abscess. Do not dig into the hoof yourself.",
+      "sourceCitation": "Merck Veterinary Manual - Lameness in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_thrush_01",
+      "species": "horse",
+      "condition": "Thrush",
+      "symptoms": ["black discharge from frog", "foul smelling hoof", "soft crumbly frog"],
+      "urgency": "Non-urgent",
+      "actionText": "Pick out and clean the hooves daily and keep the horse on dry, clean ground. Ask a farrier to trim affected tissue. Contact a vet if the horse becomes lame.",
+      "sourceCitation": "General veterinary guidance (generalized, illustrative)"
+    },
+    {
+      "id": "horse_deepwound_01",
+      "species": "horse",
+      "condition": "Serious Wound (Deep, Puncture, or Near a Joint)",
+      "symptoms": ["deep cut", "puncture wound", "heavy bleeding", "wound near joint", "clear fluid leaking from wound", "severe lameness"],
+      "urgency": "Emergency",
+      "actionText": "Apply firm pressure with a clean pad to control bleeding and call a veterinarian immediately. Do not remove any embedded object. Keep the horse as still and calm as possible.",
+      "sourceCitation": "Merck Veterinary Manual - Wound Management in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_minorwound_01",
+      "species": "horse",
+      "condition": "Minor Wound",
+      "symptoms": ["small cut", "scrape", "minor bleeding", "horse sound and eating"],
+      "urgency": "Non-urgent",
+      "actionText": "Clean the wound with clean water and keep flies away. Check it daily. Contact a vet if it is deep, near a joint, swells, or the horse becomes lame. Check the horse's tetanus vaccination status.",
+      "sourceCitation": "General veterinary guidance (generalized, illustrative)"
+    },
+    {
+      "id": "horse_eyeinjury_01",
+      "species": "horse",
+      "condition": "Eye Injury or Corneal Ulcer",
+      "symptoms": ["squinting", "tearing", "cloudy eye", "swollen eyelid", "keeping eye closed"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian the same day - horse eye problems can worsen quickly. Keep the horse out of bright sunlight and dust. Do not apply any eye ointment without veterinary advice.",
+      "sourceCitation": "Merck Veterinary Manual - Ophthalmology in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_colitis_01",
+      "species": "horse",
+      "condition": "Acute Diarrhea (Colitis)",
+      "symptoms": ["profuse watery diarrhea", "fever", "depressed", "not eating", "dark red gums"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian immediately - adult horses can dehydrate dangerously fast. Isolate the horse, as some causes are contagious, and keep fresh water available.",
+      "sourceCitation": "Merck Veterinary Manual - Colitis in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_heatstress_01",
+      "species": "horse",
+      "condition": "Heat Exhaustion",
+      "symptoms": ["rapid breathing", "high body temperature", "not sweating", "weakness", "stumbling", "hot weather"],
+      "urgency": "Emergency",
+      "actionText": "Move the horse to shade, hose it with cool water repeatedly, and offer small amounts of cool water. Call a veterinarian immediately if it does not improve quickly or collapses.",
+      "sourceCitation": "Merck Veterinary Manual - Heat Stress in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_tetanus_01",
+      "species": "horse",
+      "condition": "Tetanus",
+      "symptoms": ["stiff legs", "sawhorse stance", "third eyelid showing", "locked jaw", "jumpy to noise", "recent wound"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian immediately. Keep the horse in a quiet, dark stall with minimal noise and handling.",
+      "sourceCitation": "Merck Veterinary Manual - Tetanus (generalized, illustrative)"
+    },
+    {
+      "id": "horse_dystocia_01",
+      "species": "horse",
+      "condition": "Difficult Foaling (Dystocia)",
+      "symptoms": ["straining without progress", "water broke no foal", "only one leg visible", "red bag at vulva", "foal malpositioned"],
+      "urgency": "Emergency",
+      "actionText": "Call a veterinarian immediately - foaling should progress within about 20 minutes after the water breaks. If a red velvety bag appears instead of a white membrane, the foal needs to be delivered urgently. Do not pull on the foal without training.",
+      "sourceCitation": "Merck Veterinary Manual - Dystocia in Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_retainedplacenta_01",
+      "species": "horse",
+      "condition": "Retained Placenta",
+      "symptoms": ["afterbirth not passed", "membranes hanging from vulva", "hours after foaling"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian if the placenta has not passed within 3 hours of foaling - this is more serious in mares than cows. Tie the hanging membranes up above the hocks so the mare cannot step on them. Do not pull on them.",
+      "sourceCitation": "Merck Veterinary Manual - Retained Fetal Membranes in Mares (generalized, illustrative)"
+    },
+    {
+      "id": "horse_weakfoal_01",
+      "species": "horse",
+      "condition": "Weak Newborn Foal",
+      "symptoms": ["foal not nursing", "foal cannot stand", "weak foal", "foal cold", "mare udder full and dripping"],
+      "urgency": "Emergency",
+      "actionText": "Contact a veterinarian immediately - a foal should stand within about 1 hour and nurse within about 2 hours of birth. Keep the foal warm and dry. Do not bottle-feed a foal that cannot swallow.",
+      "sourceCitation": "Merck Veterinary Manual - Management of the Neonatal Foal (generalized, illustrative)"
+    },
+    {
+      "id": "horse_dental_01",
+      "species": "horse",
+      "condition": "Dental Problems",
+      "symptoms": ["dropping feed while chewing", "slow eating", "weight loss", "bad breath", "head tilting while eating"],
+      "urgency": "Non-urgent",
+      "actionText": "Schedule a dental check with a veterinarian or equine dentist. Offer softer feed such as soaked hay or mash in the meantime.",
+      "sourceCitation": "Merck Veterinary Manual - Dental Disorders of Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_worms_01",
+      "species": "horse",
+      "condition": "Worm Burden (Internal Parasites)",
+      "symptoms": ["weight loss", "dull coat", "pot belly", "tail rubbing", "mild diarrhea"],
+      "urgency": "Non-urgent",
+      "actionText": "Arrange a fecal worm egg count through a vet before deworming, so the right product is used. Remove manure from pasture regularly.",
+      "sourceCitation": "Merck Veterinary Manual - Gastrointestinal Parasites of Horses (generalized, illustrative)"
+    },
+    {
+      "id": "horse_mudfever_01",
+      "species": "horse",
+      "condition": "Mud Fever (Pastern Dermatitis)",
+      "symptoms": ["scabs on lower legs", "cracked skin on heels", "swollen pasterns", "sore legs", "wet muddy conditions"],
+      "urgency": "Non-urgent",
+      "actionText": "Move the horse to dry ground, gently clean and thoroughly dry the legs. Contact a vet if the leg swells badly or the horse becomes lame.",
+      "sourceCitation": "General veterinary guidance (generalized, illustrative)"
+    },
+    {
+      "id": "horse_sweetitch_01",
+      "species": "horse",
+      "condition": "Sweet Itch (Insect Bite Hypersensitivity)",
+      "symptoms": ["intense itching", "rubbing mane and tail", "hair loss at mane", "broken skin from rubbing", "worse in warm months"],
+      "urgency": "Non-urgent",
+      "actionText": "Reduce exposure to biting insects: stable the horse at dawn and dusk, use a fly rug, and apply insect repellent. Consult a vet if skin becomes broken or infected.",
+      "sourceCitation": "Merck Veterinary Manual - Culicoides Hypersensitivity (generalized, illustrative)"
+    },
+    {
+      "id": "horse_hives_01",
+      "species": "horse",
+      "condition": "Hives (Urticaria)",
+      "symptoms": ["raised bumps on skin", "sudden lumps over body", "mild itching", "breathing normal"],
+      "urgency": "Non-urgent",
+      "actionText": "Remove any new feed, bedding, or product the horse was recently exposed to. Hives often settle within a day. Call a vet immediately if the face swells or breathing becomes difficult.",
+      "sourceCitation": "Merck Veterinary Manual - Urticaria (generalized, illustrative)"
+    }
+  ]
+}

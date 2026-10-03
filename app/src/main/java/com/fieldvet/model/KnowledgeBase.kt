@@ -6,13 +6,18 @@ import android.database.sqlite.SQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import io.requery.android.database.sqlite.RequerySQLiteOpenHelperFactory
+import org.json.JSONObject
 
 private const val DATABASE_NAME = "fieldvet_knowledge.db"
-private const val DATABASE_VERSION = 1
+// Bump whenever assets/knowledge_base.json changes: onUpgrade drops the table and
+// seedIfEmpty() reloads it from the asset.
+private const val DATABASE_VERSION = 2
 private const val TABLE_NAME = "knowledge_entries"
 private const val SYMPTOM_DELIMITER = " | "
 
 class KnowledgeBase(context: Context) {
+
+    private val appContext = context.applicationContext
 
     private val openHelper: SupportSQLiteOpenHelper = RequerySQLiteOpenHelperFactory().create(
         SupportSQLiteOpenHelper.Configuration.builder(context.applicationContext)
@@ -94,169 +99,46 @@ class KnowledgeBase(context: Context) {
         }
     }
 
-    /** Seeds illustrative starter content once. Safe to call on every app launch. */
+    /**
+     * Seeds the bundled dataset (assets/knowledge_base.json) once. Safe to call on every
+     * app launch. Runs in a single transaction so a partial seed is never left behind.
+     */
     fun seedIfEmpty() {
         if (!isEmpty()) return
-        SEED_ENTRIES.forEach { insertEntry(it) }
+        val entries = loadBundledEntries()
+        val db = openHelper.writableDatabase
+        db.beginTransaction()
+        try {
+            entries.forEach { insertEntry(it) }
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
+    }
+
+    private fun loadBundledEntries(): List<KnowledgeEntry> {
+        val json = appContext.assets.open(SEED_ASSET_NAME).bufferedReader().use { it.readText() }
+        val array = JSONObject(json).getJSONArray("entries")
+        return (0 until array.length()).map { i ->
+            val obj = array.getJSONObject(i)
+            val symptoms = obj.getJSONArray("symptoms")
+            KnowledgeEntry(
+                id = obj.getString("id"),
+                species = obj.getString("species"),
+                condition = obj.getString("condition"),
+                symptoms = (0 until symptoms.length()).map { symptoms.getString(it) },
+                urgency = obj.getString("urgency").also {
+                    // Urgency is shown to the farmer verbatim, so a typo in the dataset must fail loudly.
+                    require(it in VALID_URGENCIES) { "Invalid urgency '$it' for entry ${obj.getString("id")}" }
+                },
+                actionText = obj.getString("actionText"),
+                sourceCitation = obj.getString("sourceCitation")
+            )
+        }
     }
 
     companion object {
-        private val SEED_ENTRIES = listOf(
-            KnowledgeEntry(
-                id = "cattle_bloat_01",
-                species = "cattle",
-                condition = "Bloat",
-                symptoms = listOf(
-                    "distended abdomen",
-                    "difficulty breathing",
-                    "kicking at belly",
-                    "restlessness"
-                ),
-                urgency = "Emergency",
-                actionText = "Contact a veterinarian immediately. Do not delay - bloat can be " +
-                    "fatal within hours. Keep the animal standing and moving if possible; " +
-                    "avoid forcing it to lie down.",
-                sourceCitation = "Merck Veterinary Manual - Bloat in Ruminants (generalized, illustrative)"
-            ),
-            KnowledgeEntry(
-                id = "cattle_dystocia_01",
-                species = "cattle",
-                condition = "Dystocia (Difficult Calving)",
-                symptoms = listOf(
-                    "prolonged straining",
-                    "calf legs visible but not progressing",
-                    "calf malpositioned",
-                    "exhaustion"
-                ),
-                urgency = "Emergency",
-                actionText = "Call a veterinarian immediately if active straining continues for " +
-                    "more than 30 minutes without progress. Do not attempt manual traction " +
-                    "without training.",
-                sourceCitation = "Merck Veterinary Manual - Dystocia in Cattle (generalized, illustrative)"
-            ),
-            KnowledgeEntry(
-                id = "cattle_milkfever_01",
-                species = "cattle",
-                condition = "Milk Fever (Hypocalcemia)",
-                symptoms = listOf(
-                    "muscle tremors",
-                    "down cow unable to stand",
-                    "cold ears",
-                    "staggering gait"
-                ),
-                urgency = "Emergency",
-                actionText = "Contact a veterinarian immediately for IV calcium treatment. Keep " +
-                    "the cow warm and upright with bedding support if possible.",
-                sourceCitation = "Merck Veterinary Manual - Parturient Hypocalcemia (generalized, illustrative)"
-            ),
-            KnowledgeEntry(
-                id = "cattle_footrot_01",
-                species = "cattle",
-                condition = "Foot Rot",
-                symptoms = listOf(
-                    "lameness",
-                    "swelling between hooves",
-                    "foul odor",
-                    "limping"
-                ),
-                urgency = "Monitor",
-                actionText = "Isolate the animal, clean and inspect the hoof, and monitor for " +
-                    "worsening. Schedule a veterinary visit if lameness persists beyond 2-3 " +
-                    "days or spreads to other feet.",
-                sourceCitation = "Merck Veterinary Manual - Foot Rot in Cattle (generalized, illustrative)"
-            ),
-            KnowledgeEntry(
-                id = "cattle_indigestion_01",
-                species = "cattle",
-                condition = "Mild Indigestion",
-                symptoms = listOf(
-                    "slightly reduced appetite",
-                    "mild bloating",
-                    "normal breathing",
-                    "normal manure"
-                ),
-                urgency = "Non-urgent",
-                actionText = "Monitor feed intake and manure over the next 24 hours. Ensure " +
-                    "fresh water and consistent forage. Contact a vet only if symptoms worsen.",
-                sourceCitation = "General veterinary guidance (generalized, illustrative)"
-            ),
-            KnowledgeEntry(
-                id = "horse_colic_01",
-                species = "horse",
-                condition = "Colic",
-                symptoms = listOf(
-                    "pawing at ground",
-                    "rolling",
-                    "looking at flank",
-                    "absence of gut sounds",
-                    "sweating"
-                ),
-                urgency = "Emergency",
-                actionText = "Contact a veterinarian immediately. Remove feed, keep the horse " +
-                    "calm, and walk it gently if it is safe to do so. Do not administer " +
-                    "medication without veterinary guidance.",
-                sourceCitation = "Merck Veterinary Manual - Colic in Horses (generalized, illustrative)"
-            ),
-            KnowledgeEntry(
-                id = "horse_choke_01",
-                species = "horse",
-                condition = "Choke (Esophageal Obstruction)",
-                symptoms = listOf(
-                    "coughing",
-                    "nasal discharge with feed material",
-                    "distress",
-                    "neck extension"
-                ),
-                urgency = "Emergency",
-                actionText = "Remove all feed and water immediately and call a veterinarian. Do " +
-                    "not attempt to dislodge the obstruction yourself.",
-                sourceCitation = "Merck Veterinary Manual - Esophageal Obstruction (generalized, illustrative)"
-            ),
-            KnowledgeEntry(
-                id = "horse_laminitis_01",
-                species = "horse",
-                condition = "Laminitis",
-                symptoms = listOf(
-                    "reluctance to move",
-                    "heat in hooves",
-                    "shifting weight between feet",
-                    "lying down more than usual"
-                ),
-                urgency = "Monitor",
-                actionText = "Restrict movement, provide soft bedding, and contact a " +
-                    "veterinarian within 24 hours. Remove access to rich pasture.",
-                sourceCitation = "Merck Veterinary Manual - Laminitis in Horses (generalized, illustrative)"
-            ),
-            KnowledgeEntry(
-                id = "horse_gascolic_01",
-                species = "horse",
-                condition = "Mild Gas Colic",
-                symptoms = listOf(
-                    "occasional pawing",
-                    "mild discomfort",
-                    "normal gut sounds",
-                    "improves with walking"
-                ),
-                urgency = "Monitor",
-                actionText = "Walk the horse gently and monitor closely for 30-60 minutes. " +
-                    "Contact a veterinarian if symptoms worsen or gut sounds disappear.",
-                sourceCitation = "General veterinary guidance (generalized, illustrative)"
-            ),
-            KnowledgeEntry(
-                id = "horse_rainscald_01",
-                species = "horse",
-                condition = "Rain Scald (Dermatophilosis)",
-                symptoms = listOf(
-                    "scabby skin lesions",
-                    "matted tufts of hair",
-                    "mild discomfort when touched",
-                    "no fever"
-                ),
-                urgency = "Non-urgent",
-                actionText = "Keep the affected area dry and clean. Mild cases often resolve " +
-                    "without treatment; consult a vet if lesions spread significantly.",
-                sourceCitation = "General veterinary guidance (generalized, illustrative)"
-            )
-        )
+        private const val SEED_ASSET_NAME = "knowledge_base.json"
+        private val VALID_URGENCIES = setOf("Emergency", "Monitor", "Non-urgent")
     }
 }
