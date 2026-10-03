@@ -34,9 +34,17 @@ import com.fieldvet.view.theme.UrgencyEmergency
 import com.fieldvet.view.theme.UrgencyEmergencyTint
 import com.fieldvet.viewmodel.TriageUiState
 
-private val SYMPTOM_CHIPS = listOf(
-    "Limping", "Not eating", "Diarrhea", "Coughing",
-    "Swelling", "Fever", "Lethargy", "Bloating",
+// Chip labels are sent verbatim as FTS5 search terms, so each one is worded to contain
+// words that appear in that species' entries in assets/knowledge_base.json.
+private val SYMPTOM_CHIPS_BY_SPECIES = mapOf(
+    "cattle" to listOf(
+        "Bloat", "Lameness", "Can't stand", "Diarrhea",
+        "Coughing", "Fever", "Swollen udder", "Straining",
+    ),
+    "horse" to listOf(
+        "Pawing or rolling", "Lameness", "Cough", "Nasal discharge",
+        "Diarrhea", "Fever", "Stiff muscles", "Wound",
+    ),
 )
 
 @Composable
@@ -47,6 +55,7 @@ fun SymptomInputScreen(
     onSubmit: (query: String) -> Unit,
 ) {
     val isLoading = uiState is TriageUiState.Loading
+    val symptomChips = SYMPTOM_CHIPS_BY_SPECIES[species.lowercase()].orEmpty()
     val selectedChips = remember { mutableStateListOf<String>() }
     var freeText by remember { mutableStateOf("") }
 
@@ -101,7 +110,7 @@ fun SymptomInputScreen(
             modifier = Modifier.padding(top = 4.dp, bottom = 16.dp),
         )
 
-        SYMPTOM_CHIPS.chunked(2).forEach { rowChips ->
+        symptomChips.chunked(2).forEach { rowChips ->
             Row(
                 modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),

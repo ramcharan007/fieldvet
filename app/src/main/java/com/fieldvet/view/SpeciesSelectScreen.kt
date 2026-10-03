@@ -34,6 +34,7 @@ private data class SpeciesOption(
 
 private val SPECIES_OPTIONS = listOf(
     SpeciesOption(id = "Cattle", label = "Cattle", iconLetter = "C", enabled = true),
+    SpeciesOption(id = "Horse", label = "Horse", iconLetter = "H", enabled = true),
     SpeciesOption(id = "Sheep", label = "Sheep", iconLetter = "S", enabled = false),
     SpeciesOption(id = "Goat", label = "Goat", iconLetter = "G", enabled = false),
 )
