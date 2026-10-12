@@ -16,8 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.fieldvet.model.InferenceEngine
-import com.fieldvet.model.KnowledgeBase
+import com.fieldvet.FieldVetApplication
 import com.fieldvet.model.ModelDownloadManager
 import com.fieldvet.model.RetrievalEngine
 import com.fieldvet.model.TriageUseCase
@@ -39,8 +38,8 @@ private fun noMatchRoute(species: String) = "no_match/$species"
 
 private fun triageViewModelFactory(context: Context) = viewModelFactory {
     initializer {
-        val knowledgeBase = KnowledgeBase(context).apply { seedIfEmpty() }
-        TriageViewModel(TriageUseCase(RetrievalEngine(knowledgeBase), InferenceEngine(context)))
+        val app = context.applicationContext as FieldVetApplication
+        TriageViewModel(TriageUseCase(RetrievalEngine(app.knowledgeBase), app.inferenceEngine))
     }
 }
 
