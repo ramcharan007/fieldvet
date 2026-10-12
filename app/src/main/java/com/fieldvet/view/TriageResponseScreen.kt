@@ -107,12 +107,6 @@ fun TriageResponseScreen(
                 VetContactBanner(accent = palette.accent, tint = palette.tint)
             }
 
-            Text(
-                text = "Source: ${result.sourceCitation}",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-
             OutlinedButton(
                 onClick = onNewSymptomCheck,
                 modifier = Modifier.fillMaxWidth().height(56.dp),

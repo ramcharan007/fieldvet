@@ -6,6 +6,5 @@ data class KnowledgeEntry(
     val condition: String,
     val symptoms: List<String>,
     val urgency: String, // "Emergency", "Monitor", or "Non-urgent"
-    val actionText: String,
-    val sourceCitation: String
+    val actionText: String
 )

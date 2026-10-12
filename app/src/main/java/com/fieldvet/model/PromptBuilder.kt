@@ -7,8 +7,7 @@ class PromptBuilder {
     fun buildPrompt(species: String, symptoms: String, entries: List<KnowledgeEntry>): String {
         val referenceBlock = entries.take(TOP_N_ENTRIES).joinToString("\n\n") { entry ->
             "Condition: ${entry.condition}\n" +
-                "Advice: ${entry.actionText}\n" +
-                "Source: ${entry.sourceCitation}"
+                "Advice: ${entry.actionText}"
         }
 
         return """

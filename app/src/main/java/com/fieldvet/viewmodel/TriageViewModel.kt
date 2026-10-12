@@ -48,7 +48,7 @@ class TriageViewModel(private val triageUseCase: TriageUseCase) : ViewModel() {
                     is GroundingResult.Grounded -> {
                         lastPrompt = grounding.prompt
                         _uiState.value = TriageUiState.Success(
-                            TriageResult(grounding.urgencyLevel, grounding.sourceCitation),
+                            TriageResult(grounding.urgencyLevel),
                         )
                         startStreaming(grounding.prompt)
                     }

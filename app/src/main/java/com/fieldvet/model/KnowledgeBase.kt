@@ -9,9 +9,7 @@ import io.requery.android.database.sqlite.RequerySQLiteOpenHelperFactory
 import org.json.JSONObject
 
 private const val DATABASE_NAME = "fieldvet_knowledge.db"
-// Bump whenever assets/knowledge_base.json changes: onUpgrade drops the table and
-// seedIfEmpty() reloads it from the asset.
-private const val DATABASE_VERSION = 2
+private const val DATABASE_VERSION = 3
 private const val TABLE_NAME = "knowledge_entries"
 private const val SYMPTOM_DELIMITER = " | "
 
@@ -32,8 +30,7 @@ class KnowledgeBase(context: Context) {
                             condition,
                             symptoms,
                             urgency UNINDEXED,
-                            actionText UNINDEXED,
-                            sourceCitation UNINDEXED
+                            actionText UNINDEXED
                         )
                         """.trimIndent()
                     )
@@ -55,7 +52,6 @@ class KnowledgeBase(context: Context) {
             put("symptoms", entry.symptoms.joinToString(SYMPTOM_DELIMITER))
             put("urgency", entry.urgency)
             put("actionText", entry.actionText)
-            put("sourceCitation", entry.sourceCitation)
         }
         openHelper.writableDatabase.insert(TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values)
     }
@@ -63,7 +59,7 @@ class KnowledgeBase(context: Context) {
     /** Runs an FTS5 MATCH query, most relevant match first. */
     fun search(matchQuery: String): List<KnowledgeEntry> {
         val cursor = openHelper.readableDatabase.query(
-            "SELECT id, species, condition, symptoms, urgency, actionText, sourceCitation " +
+            "SELECT id, species, condition, symptoms, urgency, actionText " +
                 "FROM $TABLE_NAME WHERE $TABLE_NAME MATCH ? ORDER BY rank",
             arrayOf(matchQuery)
         )
@@ -74,7 +70,6 @@ class KnowledgeBase(context: Context) {
             val symptomsIndex = c.getColumnIndexOrThrow("symptoms")
             val urgencyIndex = c.getColumnIndexOrThrow("urgency")
             val actionTextIndex = c.getColumnIndexOrThrow("actionText")
-            val sourceCitationIndex = c.getColumnIndexOrThrow("sourceCitation")
 
             val results = mutableListOf<KnowledgeEntry>()
             while (c.moveToNext()) {
@@ -84,8 +79,7 @@ class KnowledgeBase(context: Context) {
                     condition = c.getString(conditionIndex),
                     symptoms = c.getString(symptomsIndex).split(SYMPTOM_DELIMITER),
                     urgency = c.getString(urgencyIndex),
-                    actionText = c.getString(actionTextIndex),
-                    sourceCitation = c.getString(sourceCitationIndex)
+                    actionText = c.getString(actionTextIndex)
                 )
             }
             results
@@ -131,8 +125,7 @@ class KnowledgeBase(context: Context) {
                     // Urgency is shown to the farmer verbatim, so a typo in the dataset must fail loudly.
                     require(it in VALID_URGENCIES) { "Invalid urgency '$it' for entry ${obj.getString("id")}" }
                 },
-                actionText = obj.getString("actionText"),
-                sourceCitation = obj.getString("sourceCitation")
+                actionText = obj.getString("actionText")
             )
         }
     }
